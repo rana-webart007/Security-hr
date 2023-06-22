@@ -13,6 +13,7 @@ use App\Http\Controllers\security\SettingsManageController;
 
 ///////////////////
 use App\Http\Controllers\security\JobRepetationController;
+use App\Http\Controllers\security\IncidentReportManageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,6 +171,12 @@ Route::middleware(['isSubscribed'])->group(function () {
 
 
     Route::get('cron-test', [App\Http\Controllers\TrackingController::class, 'cron_test'])->name('security\cron-test');
+
+    /**
+     * Incident Report
+    */
+    Route::get('incident/reports', [IncidentReportManageController::class, 'incident_reports'])->name('security\incident\report');
+    Route::get('incident/reports/details/{id}', [IncidentReportManageController::class, 'incident_reports_details']);
 });
 
 

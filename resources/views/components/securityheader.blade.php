@@ -159,6 +159,15 @@
 				@endif
 				<!-- -->
 
+				<!-- incident report -->
+				<li>
+					<a href="{{ url('security/incident/reports') }}">
+						<div class="parent-icon"><i class="fa-solid fa-money-bill"></i>
+						</div>
+						<div class="menu-title">{{ __('Incident Report') }}</div>
+					</a>
+				</li>
+
 				<li>
 					<a href="javascript:void(0)">
 						<div class="parent-icon"><i class='bx bxs-cog' ></i>

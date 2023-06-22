@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\GuardTrackingApiController;
+use App\Http\Controllers\API\IncidentReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,15 @@ Route::get("wages/{scheduleId}", [App\Http\Controllers\API\GuardController::clas
 // for notification
 
 Route::get('job-notification', [App\Http\Controllers\API\GuardController::class, 'job_notification'])->middleware('auth:api');
+
+
+/**
+ * Incident Report
+*/
+
+Route::post('guard/incident/report/submit', [IncidentReportController::class, 'incident_report'])->middleware('auth:api');
+Route::get('guard/all/incidents', [IncidentReportController::class, 'incident_details'])->middleware('auth:api');
+Route::get('guard/individual/incidents/details/{incident_id}', [IncidentReportController::class, 'individual_incident_details'])->middleware('auth:api');
 
 // for guard tracking
 Route::post('guard/tracking/history/add', [GuardTrackingApiController::class, 'tracking_add'])->middleware('auth:api');
