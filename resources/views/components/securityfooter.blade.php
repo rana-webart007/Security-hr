@@ -85,6 +85,26 @@
       });
 	</script>
 
+	<!-- auto refresh for notification & message -->
+    <script>
+		const myTimeout = setInterval(myGreeting, 10000);
+
+		function myGreeting() {
+			$( "#nav_div" ).load(window.location.href + " #nav_div" );
+		}
+	</script>
+
+	<!-- -->
+	<script>
+		function messageView(id, pid){
+			if(pid == 0){
+			   window.location.href = "./message/details/"+id;
+			}
+			if(pid == 1){
+				window.location.href = "{{ asset('security/message/details') }}"+'/'+id;
+			}
+		}
+	</script>
 
 </body>
 

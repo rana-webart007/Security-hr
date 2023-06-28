@@ -51,6 +51,10 @@
                             $user = App\Models\User::whereId($data->guard_id)->first(); 
                     @endphp
 
+                    <div class="text-end">
+                        <input type="button" class="btn btn-primary" value="Print" onclick="printDetails()">
+                        <a href="{{ url('security/incident/details/pdf/generate', $data->incident_id) }}" class="btn btn-danger">Generate PDF</a>
+                    </div>
 
                         <div id="details_div">
                            <h2> User Information </h2><hr>
@@ -511,8 +515,6 @@
                         
                     </div>
                 </div>
-
-                <input type="button" class="btn btn-primary" value="Print" onclick="printDetails()">
 
             </div>
         </div>

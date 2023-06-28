@@ -14,6 +14,8 @@ use App\Http\Controllers\security\SettingsManageController;
 ///////////////////
 use App\Http\Controllers\security\JobRepetationController;
 use App\Http\Controllers\security\IncidentReportManageController;
+use App\Http\Controllers\security\NotificationManageController;
+use App\Http\Controllers\security\MessageManageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -175,14 +177,35 @@ Route::middleware(['isSubscribed'])->group(function () {
     /**
      * Incident Report
     */
-    Route::get('incident/reports', [IncidentReportManageController::class, 'incident_reports'])->name('security\incident\report');
-    Route::get('incident/reports/details/{id}', [IncidentReportManageController::class, 'incident_reports_details']);
+    Route::get('incident/reports', [IncidentReportManageController::class, 'incident_reports'])->middleware('security.auth')->name('security\incident\report');
+    Route::get('incident/reports/details/{id}', [IncidentReportManageController::class, 'incident_reports_details'])->middleware('security.auth');
+
+    /**
+     * Download Pdf
+    */
+
+    Route::get('incident/details/pdf/generate/{id}', [IncidentReportManageController::class, 'pdf_generate']);
+
+    /**
+     * Notification
+    */
+    Route::get('notification/mark/all/as/read', [NotificationManageController::class, 'mark__all_as_read'])->middleware('security.auth');
+    Route::get('view/all/notifications', [NotificationManageController::class, 'view_all_notification'])->middleware('security.auth');
+
+    /**
+     * Message
+    */
+    Route::get('message/mark/all/as/read', [MessageManageController::class, 'mark__all_as_read'])->middleware('security.auth');
+    Route::get('message/details/{id}', [MessageManageController::class, 'message_details'])->middleware('security.auth');
+    Route::post('message/reply/{id}', [MessageManageController::class, 'message_reply'])->middleware('security.auth')->name('security.message.reply');
+    Route::get('view/all/message', [MessageManageController::class, 'view_all_message'])->middleware('security.auth')->name('security.view.all.msg');
+    Route::get('message/delete/{id}', [MessageManageController::class, 'delete_message'])->middleware('security.auth')->name('security.message.delete');
 });
 
 
     // Subscription Module.. (stripe)
     
-    Route::get('plans', [PlanController::class, 'index'])->name('security.subscription.plans');
+    Route::get('plans', [PlanController::class, 'index'])->middleware('security.auth')->name('security.subscription.plans');
     Route::get('plans/{plan}', [PlanController::class, 'show'])->name("plans.show");
     Route::post('subscription', [PlanController::class, 'subscription'])->name("subscription.create");
 

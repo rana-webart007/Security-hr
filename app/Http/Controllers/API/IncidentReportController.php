@@ -117,7 +117,8 @@ class IncidentReportController extends Controller
 
     public function incident_details(){
           $all = IncidentReport::where('guard_id', auth()->user()->id)->orderBy('id', 'desc')->get();
-          return response()->json(['msg' => "Success", 'details' => $all], 200);
+          $img_path = asset('incident/img/');
+          return response()->json(['msg' => "Success", 'details' => $all, 'basePath' => $img_path], 200);
     }
 
     public function individual_incident_details($incident_id){
@@ -126,7 +127,8 @@ class IncidentReportController extends Controller
             if($check == null){
                 return response()->json(['msg' => "No Incident Found"], 400);
             }else{
-                return response()->json(['msg' => "Success", 'details' => $check], 200);
+                $img_path = asset('incident/img/');
+                return response()->json(['msg' => "Success", 'details' => $check, 'basePath' => $img_path], 200);
             }
     }
 }
